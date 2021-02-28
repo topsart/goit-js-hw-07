@@ -2,26 +2,30 @@ const inputNode = document.querySelector('#validation-input');
 const classValid = 'valid';
 const classInvalid = 'invalid';
 
+function classManipulation(add, remove) {
+  inputNode.classList.remove(remove);
+  inputNode.classList.add(add);
+}
+
 function makeValid() {
-    inputNode.classList.remove(classInvalid);
-    inputNode.classList.add(classValid);
- };
+  classManipulation(classValid, classInvalid);
+}
+
 function makeInvalid() {
-    inputNode.classList.remove(classValid);
-    inputNode.classList.add(classInvalid);
- };
+  classManipulation(classInvalid, classValid);
+}
 
 function makeDefault() {
-    inputNode.classList.remove(classInvalid);
-    inputNode.classList.remove(classValid);
- }
+  inputNode.classList.remove(classInvalid);
+  inputNode.classList.remove(classValid);
+}
 
 inputNode.addEventListener('focusout', ({ target }) => {
-    if (target.value.length === 6) {
-        makeValid();
-    } else if (target.value.length === 0) {
-        makeDefault();
-    } else {
-        makeInvalid();
-     }
- })
+  if (target.value.length === parseInt(inputNode.getAttribute('data-length'))) {
+    makeValid();
+  } else if (target.value.length === 0) {
+    makeDefault();
+  } else {
+    makeInvalid();
+  }
+});
